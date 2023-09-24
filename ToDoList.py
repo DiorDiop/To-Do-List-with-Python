@@ -18,6 +18,7 @@ tasks = []
 # In[ ]:
 
 
+
 # Create the to do list table
 while True:
     print("\nTo-Do List Manager")
@@ -61,13 +62,15 @@ while True:
             print("Invalid input. Please enter a valid task number.")
     elif choice == "5":
         try:
-            with open("todolist.csv", "w", newline="") as file:
+            # Prompt the user for the file path where they want to save the CSV file
+            file_path = input("Enter the file path to save the CSV file (e.g., 'todolist.csv'): ")
+            with open(file_path, "w", newline="") as file:
                 csv_writer = csv.DictWriter(file, fieldnames=["task", "action"])
                 csv_writer.writeheader()
                 for task in tasks:
                     action = "Done" if task["done"] else "Not Done"
                     csv_writer.writerow({"task": task["task"], "action": action})
-            print("Tasks saved to 'todolist.csv' successfully!")
+            print(f"Tasks saved to '{file_path}' successfully!")
         except Exception as e:
             print(f"Error: {str(e)}")
     elif choice == "6":
